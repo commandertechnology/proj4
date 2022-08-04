@@ -18,11 +18,12 @@ Grade::Grade(const std::string &infoLine) {
 
   // parsing
   while (std::getline(line_stream, temp, ',')) {
-    if (n == 0)
+    if (n == 0) {
       studentName = temp;
-    if (n == 1)
+    }
+    if (n == 1) {
       grade = stof(temp);
-
+    }
     n++;
   }
 }

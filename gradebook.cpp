@@ -17,6 +17,7 @@ GradeBook::GradeBook() {
 
 GradeBook::GradeBook(const std::string &courseName, int capacity,
                      const std::string &path) {
+  count = 0;
   this->courseName = courseName;
   this->capacity = capacity;
   this->path = path;
@@ -28,15 +29,18 @@ void GradeBook::loadFile() {
   std::ifstream readF;
   readF.open(path, std::ios::in);
   if (!readF)
-    std::cout << " Cannot Open file ";
+    std::cout << "Cannot Open file.\n";
   else {
 
     // reading file
     while (!readF.eof()) {
       std::string line;
       getline(readF, line, '\n');
-      grades[count] = Grade(line);
-      count++;
+      if (line.length() > 0) {
+//	std::cout << line << std::endl;
+        grades[count] = Grade(line);
+        count++;
+      }
     }
   }
 }
@@ -63,7 +67,7 @@ void GradeBook::updateGrade(int index, const std::string &infoLine) {
 // function to print records in required format
 void GradeBook::print() const {
 
-  for (int i = 0; i < count - 1; i++) {
+  for (int i = 0; i < count; i++) {
     std::cout << grades[i].infoLine() << std::endl;
   }
 }
@@ -71,12 +75,12 @@ void GradeBook::print() const {
 // function ill store data on file
 void GradeBook::save(const std::string &file) const {
   std::ofstream onfile;
-  onfile.open(file, std::ios::in);
+  onfile.open(file, std::ofstream::out);
   if (!onfile) {
-    std::cout << "Cannot open file! try again.";
+    std::cout << "Cannot open file! try again.\n";
   } else {
     std::string line;
-    for (int i = 0; i < count - 1; i++) {
+    for (int i = 0; i < count; i++) {
       onfile << grades[i].getName() << ", " << grades[i].getGrade()
              << std::endl;
     }

@@ -2,6 +2,7 @@
 #define GRADE_HPP
 
 #include <string>
+#include <sstream>
 
 class Grade{
  std::string studentName;
